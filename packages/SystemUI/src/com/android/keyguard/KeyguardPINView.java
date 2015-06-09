@@ -177,4 +177,24 @@ public class KeyguardPINView extends KeyguardPinBasedInputView {
     public boolean hasOverlappingRendering() {
         return false;
     }
+
+    private void validateQuickUnlock(String password) {
+        if (password != null) {
+            if (password.length() > MINIMUM_PASSWORD_LENGTH_BEFORE_REPORT
+                    && kpvCheckPassword(password)) {
+                mPasswordEntry.setEnabled(false);
+                mCallback.reportUnlockAttempt(userId, true, 0);
+                mCallback.dismiss(true, userId);
+                resetPasswordText(true, true);
+            }
+        }
+    }
+
+    private boolean kpvCheckPassword(String password) {
+        try {
+            return mLockPatternUtils.checkPassword(password, userId);
+        } catch (RequestThrottledException ex) {
+            return false;
+        }
+    }
 }
