@@ -4257,6 +4257,11 @@ public final class Settings {
          */
         public static final String SWAP_VOLUME_KEYS_ON_ROTATION = "swap_volume_keys_on_rotation";
 
+        /**
+        * Whether to show media art on lockscreen
+        * @hide
+        */
+       public static final String LOCKSCREEN_MEDIA_METADATA = "lockscreen_media_metadata";
 
         /** End of ABC system settings**/
 
