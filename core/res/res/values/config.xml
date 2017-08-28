@@ -2625,6 +2625,7 @@
         <item>bugreport</item>
         <item>screenshot</item>
         <item>emergency</item>
+        <item>recovery</item>
     </string-array>
 
     <!-- Number of milliseconds to hold a wake lock to ensure that drawing is fully
