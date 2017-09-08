@@ -420,6 +420,8 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private boolean mExpandedVisible;
 
+    ActivityManager mAm;
+
     private boolean mFpDismissNotifications;
 
     private final int[] mAbsPos = new int[2];
@@ -693,6 +695,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                 mContext.getSystemService(Context.ACCESSIBILITY_SERVICE);
 
         mPowerManager = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
+
+        mAm = (ActivityManager) mContext.getSystemService(Context.ACTIVITY_SERVICE);
 
         mDeviceProvisionedController = Dependency.get(DeviceProvisionedController.class);
 
@@ -1983,6 +1987,10 @@ public class StatusBar extends SystemUI implements DemoMode,
             if (DEBUG) {
                 Log.d(TAG, "No peeking: disabled panel : " + sbn.getKey());
             }
+            return false;
+        }
+
+        if (mEntryManager.shouldSkipHeadsUp(sbn)) {
             return false;
         }
 
@@ -5192,6 +5200,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.LESS_BORING_HEADS_UP),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -5220,6 +5231,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.Secure.getUriFor(
                     Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS))) {
                 setFpToDismissNotifications();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.LESS_BORING_HEADS_UP))) {
+                setUseLessBoringHeadsUp();
             }
         }
 
@@ -5229,6 +5243,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateQsPanelResources();
             setPulseBlacklist();
             setFpToDismissNotifications();
+            setUseLessBoringHeadsUp();
         }
     }
 
@@ -5259,6 +5274,13 @@ public class StatusBar extends SystemUI implements DemoMode,
         mFpDismissNotifications = Settings.Secure.getIntForUser(mContext.getContentResolver(),
                 Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS, 0,
                 UserHandle.USER_CURRENT) == 1;
+    }
+
+    private void setUseLessBoringHeadsUp() {
+        boolean lessBoringHeadsUp = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.LESS_BORING_HEADS_UP, 1,
+                UserHandle.USER_CURRENT) == 1;
+        mEntryManager.setUseLessBoringHeadsUp(lessBoringHeadsUp);
     }
 
     private final BroadcastReceiver mBannerActionBroadcastReceiver = new BroadcastReceiver() {

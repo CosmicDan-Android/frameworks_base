@@ -4306,13 +4306,19 @@ public final class Settings {
          */
         public static final String QS_COLUMNS_LANDSCAPE = "qs_columns_landscape";
 
-        /** End of ABC system settings**/
-
         /**
          * Whether to display qs tile titles in the qs panel
          * @hide
          */
         public static final String QS_TILE_TITLE_VISIBILITY = "qs_tile_title_visibility";
+
+        /**
+         * Wheter to show heads up only for dialer and sms apps
+         * @hide
+         */
+        public static final String LESS_BORING_HEADS_UP = "less_boring_heads_up";
+
+        /** End of ABC system settings**/
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
