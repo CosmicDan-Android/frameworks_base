@@ -16,5 +16,8 @@
   along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
+
     <dimen name="qs_corner_content_padding">8dp</dimen>
+
+    <dimen name="screenrecord_hint_size">48dp</dimen>
 </resources>
