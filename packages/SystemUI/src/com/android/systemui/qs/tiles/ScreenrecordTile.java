@@ -22,7 +22,7 @@ import android.provider.Settings;
 import android.service.quicksettings.Tile;
 import android.view.WindowManager;
 
-import com.android.internal.util.abc.AbcUtils;
+import com.android.internal.util.du.Utils;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
 import com.android.systemui.qs.QSHost;
 import com.android.systemui.plugins.qs.QSTile.BooleanState;
@@ -36,10 +36,13 @@ public class ScreenrecordTile extends QSTileImpl<BooleanState> {
     private static final int SCREEN_RECORD_MID_QUALITY = WindowManager.SCREEN_RECORD_MID_QUALITY;
     private static final int SCREEN_RECORD_HIGH_QUALITY = WindowManager.SCREEN_RECORD_HIGH_QUALITY;
 
-    private int mMode = SCREEN_RECORD_LOW_QUALITY;
+    private int mMode;
 
     public ScreenrecordTile(QSHost host) {
         super(host);
+        mMode = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.SCREENRECORD_QUALITY_MODE, SCREEN_RECORD_LOW_QUALITY,
+                UserHandle.USER_CURRENT);
     }
 
     @Override
@@ -70,6 +73,9 @@ public class ScreenrecordTile extends QSTileImpl<BooleanState> {
         } else if (mMode == SCREEN_RECORD_HIGH_QUALITY) {
             mMode = SCREEN_RECORD_LOW_QUALITY;
         }
+        Settings.System.putIntForUser(mContext.getContentResolver(),
+                Settings.System.SCREENRECORD_QUALITY_MODE, mMode,
+                UserHandle.USER_CURRENT);
     }
 
     @Override
@@ -79,7 +85,7 @@ public class ScreenrecordTile extends QSTileImpl<BooleanState> {
         try {
              Thread.sleep(1000); //1s
         } catch (InterruptedException ie) {}
-        AbcUtils.takeScreenrecord(mMode);
+        Utils.takeScreenrecord(mMode);
     }
 
     @Override
