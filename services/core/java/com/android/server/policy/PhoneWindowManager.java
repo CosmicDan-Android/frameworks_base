@@ -1762,7 +1762,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             break;
         case LONG_PRESS_POWER_GLOBAL_ACTIONS:
             mPowerKeyHandled = true;
-            performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
+            if (!(isKeyguardShowingAndNotOccluded() && isKeyguardSecure(mCurrentUserId) &&
+                    mGlobalActionsOnLockDisable)) {
+                performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
+            }
             showGlobalActionsInternal();
             break;
         case LONG_PRESS_POWER_SHUT_OFF:
