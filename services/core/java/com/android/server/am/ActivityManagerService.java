@@ -393,6 +393,8 @@ import android.view.RemoteAnimationAdapter;
 import android.view.RemoteAnimationDefinition;
 import android.view.View;
 import android.view.WindowManager;
+import android.util.BoostFramework;
+
 import android.view.autofill.AutofillManagerInternal;
 
 import com.android.internal.R;
@@ -681,6 +683,11 @@ public class ActivityManagerService extends IActivityManager.Stub
     private static final int MAX_BUGREPORT_TITLE_SIZE = 50;
 
     private static final int NATIVE_DUMP_TIMEOUT_MS = 2000; // 2 seconds;
+
+    /* Freq Aggr boost objects */
+    public static BoostFramework mPerfServiceStartHint = null;
+    /* UX perf event object */
+    public static BoostFramework mUxPerf = new BoostFramework();
 
     /** All system services */
     SystemServiceManager mSystemServiceManager;
@@ -4487,13 +4494,22 @@ public class ActivityManagerService extends IActivityManager.Stub
                         app.info.targetSdkVersion, seInfo, requiredAbi, instructionSet,
                         app.info.dataDir, null,
                         new String[] {PROC_START_SEQ_IDENT + app.startSeq});
-            } else {
+            }
+            else {
                 startResult = Process.start(entryPoint,
                         app.processName, uid, uid, gids, runtimeFlags, mountExternal,
                         app.info.targetSdkVersion, seInfo, requiredAbi, instructionSet,
                         app.info.dataDir, invokeWith,
                         new String[] {PROC_START_SEQ_IDENT + app.startSeq});
             }
+
+            if (mPerfServiceStartHint == null) {
+                mPerfServiceStartHint = new BoostFramework();
+            }
+            if (mPerfServiceStartHint != null) {
+                mPerfServiceStartHint.perfHint(BoostFramework.VENDOR_HINT_FIRST_LAUNCH_BOOST, app.processName, -1, BoostFramework.Launch.TYPE_SERVICE_START);
+            }
+
             checkTime(startTime, "startProcess: returned from zygote!");
             return startResult;
         } finally {
@@ -5128,6 +5144,41 @@ public class ActivityManagerService extends IActivityManager.Stub
                 .setMayWait(userId)
                 .execute();
 
+    }
+
+    final int startActivityAsUserEmpty(IApplicationThread caller, String callingPackage,
+            Intent intent, String resolvedType, IBinder resultTo, String resultWho, int requestCode,
+            int startFlags, ProfilerInfo profilerInfo, Bundle options, int userId) {
+        ArrayList<String> pApps = options.getStringArrayList("start_empty_apps");
+        if (pApps != null && pApps.size() > 0) {
+            Iterator<String> apps_itr = pApps.iterator();
+            while (apps_itr.hasNext()) {
+                ProcessRecord empty_app = null;
+                String app_str = apps_itr.next();
+                if (app_str == null)
+                    continue;
+                synchronized (this) {
+                    Intent intent_l = null;
+                    try {
+                        intent_l = mContext.getPackageManager().getLaunchIntentForPackage(app_str);
+                        if (intent_l == null)
+                            continue;
+                        ActivityInfo aInfo = mStackSupervisor.resolveActivity(intent_l, null,
+                                                                          0, null, 0, 0);
+                        if (aInfo == null)
+                            continue;
+                        empty_app = startProcessLocked(app_str, aInfo.applicationInfo, false, 0,
+                                                   "activity", null, false, false, true);
+                        if (empty_app != null)
+                            updateOomAdjLocked(empty_app, true);
+                    } catch (Exception e) {
+                        if (DEBUG_PROCESSES)
+                            Slog.w(TAG, "Exception raised trying to start app as empty " + e);
+                    }
+                }
+            }
+        }
+        return 1;
     }
 
     @Override
@@ -6058,7 +6109,6 @@ public class ActivityManagerService extends IActivityManager.Stub
                 return;
             }
         }
-
         BatteryStatsImpl stats = mBatteryStatsService.getActiveStatistics();
         synchronized (stats) {
             stats.noteProcessDiedLocked(app.info.uid, pid);
@@ -6088,6 +6138,9 @@ public class ActivityManagerService extends IActivityManager.Stub
                 // new number of procs.
                 mAllowLowerMemLevel = false;
                 doLowMem = false;
+            }
+            if (mUxPerf != null) {
+                mUxPerf.perfUXEngine_events(BoostFramework.UXE_EVENT_KILL, 0, app.processName, 0);
             }
             EventLog.writeEvent(EventLogTags.AM_PROC_DIED, app.userId, app.pid, app.processName,
                     app.setAdj, app.setProcState);
@@ -7277,6 +7330,9 @@ public class ActivityManagerService extends IActivityManager.Stub
                         + " user=" + userId + ": " + reason);
             } else {
                 Slog.i(TAG, "Force stopping u" + userId + ": " + reason);
+            }
+            if (mUxPerf != null) {
+                mUxPerf.perfUXEngine_events(BoostFramework.UXE_EVENT_KILL, 0, packageName, 0);
             }
 
             mAppErrors.resetProcessCrashTimeLocked(packageName == null, appId, userId);

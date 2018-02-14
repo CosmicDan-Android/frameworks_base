@@ -165,6 +165,7 @@ import android.os.SystemProperties;
 import android.os.UserHandle;
 import android.os.storage.StorageManager;
 import android.service.voice.IVoiceInteractionSession;
+import android.util.BoostFramework;
 import android.util.EventLog;
 import android.util.Log;
 import android.util.MergedConfiguration;
@@ -178,6 +179,7 @@ import android.view.RemoteAnimationDefinition;
 import android.view.WindowManager.LayoutParams;
 
 import com.android.internal.R;
+import com.android.internal.app.procstats.ProcessStats;
 import com.android.internal.app.ResolverActivity;
 import com.android.internal.content.ReferrerIntent;
 import com.android.internal.util.XmlUtils;
@@ -193,6 +195,7 @@ import com.android.server.wm.TaskWindowContainerController;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlSerializer;
+import android.util.BoostFramework;
 
 import java.io.File;
 import java.io.IOException;
@@ -203,6 +206,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import android.util.BoostFramework;
+
+import android.util.BoostFramework;
 
 /**
  * An entry in the history stack, representing an activity.
@@ -261,6 +267,7 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
     private int theme;              // resource identifier of activity's theme.
     private int realTheme;          // actual theme resource we will use, never 0.
     private int windowFlags;        // custom window flags for preview window.
+    int perfActivityBoostHandler = -1; //perflock handler when activity is created.
     private TaskRecord task;        // the task this is in.
     private long createTime = System.currentTimeMillis();
     long lastVisibleTime;   // last time this activity became visible
@@ -349,6 +356,10 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
     boolean pendingVoiceInteractionStart;   // Waiting for activity-invoked voice session
     IVoiceInteractionSession voiceSession;  // Voice interaction session for this activity
 
+    private BoostFramework mPerf = null;
+    public BoostFramework mUxPerf = new BoostFramework();
+    public BoostFramework mPerf_iop = null;
+
     // A hint to override the window specified rotation animation, or -1
     // to use the window specified value. We use this so that
     // we can select the right animation in the cases of starting
@@ -358,6 +369,7 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
 
     private boolean mShowWhenLocked;
     private boolean mTurnScreenOn;
+    public static BoostFramework mPerfFirstDraw = null;
 
     /**
      * Temp configs used in {@link #ensureActivityConfiguration(int, boolean)}
@@ -976,6 +988,9 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
                 lockTaskLaunchMode = LOCK_TASK_LAUNCH_MODE_IF_WHITELISTED;
             }
         }
+
+        if (mPerf == null)
+            mPerf = new BoostFramework();
     }
 
     void setProcess(ProcessRecord proc) {
@@ -1846,8 +1861,12 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
             if (app != null && app != service.mHomeProcess) {
                 service.mHomeProcess = app;
             }
+            try {
+                mStackSupervisor.new PreferredAppsTask().execute();
+            } catch (Exception e) {
+                Slog.v (TAG, "Exception: " + e);
+            }
         }
-
         if (nowVisible) {
             // We won't get a call to reportActivityVisibleLocked() so dismiss lockscreen now.
             mStackSupervisor.reportActivityVisibleLocked(this);
@@ -1989,8 +2008,44 @@ final class ActivityRecord extends ConfigurationContainer implements AppWindowCo
         if (info != null) {
             mStackSupervisor.reportActivityLaunchedLocked(false /* timeout */, this,
                     info.windowsFullyDrawnDelayMs);
+            }
+
+        int windowsFullyDrawnDelayMsPerf = info != null ? info.windowsFullyDrawnDelayMs : 0;
+
+        if (mUxPerf != null) {
+                    mUxPerf.perfUXEngine_events(BoostFramework.UXE_EVENT_DISPLAYED_ACT, 0, packageName,
+                                                       windowsFullyDrawnDelayMsPerf);
+        }
+
+        int isGame = isAppInfoGame();
+        if (mUxPerf !=  null) {
+            mUxPerf.perfUXEngine_events(BoostFramework.UXE_EVENT_GAME, 0, packageName, isGame);
+        }
+
+        if (mPerfFirstDraw == null) {
+            mPerfFirstDraw = new BoostFramework();
+        }
+
+        if (mPerfFirstDraw != null) {
+            mPerfFirstDraw.perfHint(BoostFramework.VENDOR_HINT_FIRST_DRAW, info.packageName,
+                                          windowsFullyDrawnDelayMsPerf, BoostFramework.Draw.EVENT_TYPE_V1);
+        }
+
+        if (mPerf != null && perfActivityBoostHandler > 0) {
+            mPerf.perfLockReleaseHandler(perfActivityBoostHandler);
+            perfActivityBoostHandler = -1;
         }
     }
+
+    public int isAppInfoGame() {
+        int isGame = 0;
+        if (appInfo != null) {
+            isGame = (appInfo.category == ApplicationInfo.CATEGORY_GAME ||
+                      (appInfo.flags & ApplicationInfo.FLAG_IS_GAME) == ApplicationInfo.FLAG_IS_GAME) ? 1 : 0;
+        }
+        return isGame;
+    }
+
     @Override
     public void onStartingWindowDrawn(long timestamp) {
         synchronized (service) {
