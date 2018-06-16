@@ -77,7 +77,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
-import com.android.internal.util.abc.AbcUtils;
+import com.android.internal.util.du.Utils;
 import com.android.systemui.R;
 import com.android.systemui.SystemUI;
 import com.android.systemui.util.NotificationChannels;
@@ -85,6 +85,7 @@ import com.android.systemui.util.NotificationChannels;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -144,13 +145,23 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
         String imageDate = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date(mImageTime));
         mImageFileName = String.format(SCREENSHOT_FILE_NAME_TEMPLATE, imageDate);
         final PackageManager pm = context.getPackageManager();
-        ActivityInfo info = AbcUtils.getRunningActivityInfo(context);
+        ActivityInfo info = Utils.getRunningActivityInfo(context);
         if (info != null) {
             CharSequence appName = pm.getApplicationLabel(info.applicationInfo);
             boolean onKeyguard = context.getSystemService(KeyguardManager.class).isKeyguardLocked();
             if (appName != null && !onKeyguard) {
                 // replace all spaces and special chars with an underscore
-                String appNameString = appName.toString().replaceAll("[\\\\/:*?\"<>|\\s]+", "_");
+                String appNameString = appName.toString();
+                try {
+                    // with some languages like Virgin Islands English, the Settings app gets a weird long name
+                    // and some special voodoo chars, so we convert the string to utf-8 to get a  char instead,
+                    // easy to remove it then
+                    final String temp = new String(appNameString.getBytes("ISO-8859-15"), "UTF-8");
+                    appNameString = temp.replaceAll("[]+", "");
+                } catch (UnsupportedEncodingException e) {}
+                // now remove all special chars from the app name
+                appNameString = appNameString.replaceAll("[\\\\/:*?\"<>|\\s]+", "_");
+
                 mImageFileName = String.format(SCREENSHOT_FILE_NAME_TEMPLATE_APPNAME, appNameString, imageDate);
             }
         }
