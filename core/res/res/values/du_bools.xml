@@ -14,15 +14,9 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<resources>
-  <!-- Toast text and bg colors -->
-  <java-symbol type="color" name="toast_bg_color" />
-  <java-symbol type="color" name="toast_text_color" />
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-  <!-- Fastscroller -->
-  <java-symbol type="color" name="fastscroller_text_color" />
-
-  <!-- Whether device supports an alt. ambient display -->
-  <java-symbol type="bool" name="config_alt_ambient_display"/>
+    <!-- Whether device supports an alt. ambient display -->
+    <bool name="config_alt_ambient_display">false</bool>
 
 </resources>
