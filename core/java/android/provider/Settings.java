@@ -4456,8 +4456,17 @@ public final class Settings {
         public static final String LOCKSCREEN_QUICK_UNLOCK_CONTROL =
                 "lockscreen_quick_unlock_control";
 
-        /** End of ABC system settings**/
+        /**
+         * @hide
+         */
+        public static final String DESCENDANT_USE_BOTTOM_GESTURE_NAVIGATION =
+                "use_bottom_gesture_navigation";
+         /** @hide */
+        private static final Validator DESCENDANT_USE_BOTTOM_GESTURE_NAVIGATION_VALIDATOR =
+                BOOLEAN_VALIDATOR;
 
+        /** End of ABC system settings**/
+        
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
@@ -4518,6 +4527,7 @@ public final class Settings {
             HAPTIC_FEEDBACK_INTENSITY,
             DISPLAY_COLOR_MODE,
             NOTIFICATION_LIGHT_PULSE,
+            DESCENDANT_USE_BOTTOM_GESTURE_NAVIGATION,
         };
 
         /**
@@ -4633,6 +4643,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SHOW_BATTERY_PERCENT);
             PRIVATE_SETTINGS.add(DISPLAY_COLOR_MODE);
             PRIVATE_SETTINGS.add(WEATHER_LOCKSCREEN_UNIT);
+            PRIVATE_SETTINGS.add(DESCENDANT_USE_BOTTOM_GESTURE_NAVIGATION);
         }
 
         /**
@@ -4723,6 +4734,8 @@ public final class Settings {
             VALIDATORS.put(SHOW_BATTERY_PERCENT, SHOW_BATTERY_PERCENT_VALIDATOR);
             VALIDATORS.put(NOTIFICATION_LIGHT_PULSE, BOOLEAN_VALIDATOR);
             VALIDATORS.put(WEATHER_LOCKSCREEN_UNIT, WEATHER_LOCKSCREEN_UNIT_VALIDATOR);
+            VALIDATORS.put(DESCENDANT_USE_BOTTOM_GESTURE_NAVIGATION,
+                    DESCENDANT_USE_BOTTOM_GESTURE_NAVIGATION_VALIDATOR);
         }
 
         /**

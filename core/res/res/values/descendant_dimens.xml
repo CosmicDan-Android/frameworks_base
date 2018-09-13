@@ -3,4 +3,8 @@
     <!-- Toast -->
     <dimen name="toast_elevation">2dp</dimen>
 
+    <!-- Gestures -->
+    <dimen name="nav_gesture_swipe_min_length">50dp</dimen>
+    <dimen name="nav_gesture_long_press_max_length">45dp</dimen>
+
 </resources>
