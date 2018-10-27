@@ -286,7 +286,7 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
 
         @Override
         public int getMetricsCategory() {
-            return MetricsEvent.CUSTOM_QUICK_TILES;
+            return MetricsEvent.ABC;
         }
 
         @Override
@@ -355,7 +355,7 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
 
     @Override
     public int getMetricsCategory() {
-        return MetricsEvent.CUSTOM_QUICK_TILES;
+        return MetricsEvent.ABC;
     }
 
     @Override
