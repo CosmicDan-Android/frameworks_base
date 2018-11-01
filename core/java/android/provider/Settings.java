@@ -4133,6 +4133,12 @@ public final class Settings {
          */
         public static final String FULL_GESTURE_NAVBAR = "full_gesture_navbar";
 
+        /**
+         * @hide
+         */
+        public static final String FULL_GESTURE_NAVBAR_DT2S = "full_gesture_navbar_dt2s";
+
+
         /** End of ABC system settings**/
 
         /**
