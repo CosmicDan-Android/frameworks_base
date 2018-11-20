@@ -116,6 +116,7 @@
                 style="@android:style/Widget.Material.Button.Borderless"
                 android:layout_width="46dp"
                 android:layout_height="48dp"
+                android:padding="15dp"
                 android:clickable="true"
                 android:focusable="true"
                 android:background="@drawable/ripple_drawable"
