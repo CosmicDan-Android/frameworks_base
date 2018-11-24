@@ -36,7 +36,7 @@
     <dimen name="net_traffic_multi_text_size">8dp</dimen>
     <dimen name="net_traffic_txt_img_padding">2dp</dimen>
 
-    <!-- Slider heighht -->
+    <!-- Slider height -->
     <dimen name="slider_height">100dp</dimen>
 
     <!-- The width/height of the charging indicator view on keyguard. -->
@@ -46,5 +46,15 @@
     <!-- QS drag handle -->
     <dimen name="qs_drag_handle_view_width">24dp</dimen>
     <dimen name="qs_drag_handle_view_height">24dp</dimen>
+
+    <!-- Navigation Bar Animation (OPA) -->
+    <dimen name="halo_diameter">18.0dip</dimen>
+    <dimen name="halo_inner_radius">8.0dip</dimen>
+    <dimen name="halo_thickness">1.0dip</dimen>
+    <dimen name="opa_diamond_translation">16.0dip</dimen>
+    <dimen name="opa_dot_diam">10.0dip</dimen>
+    <dimen name="opa_line_x_trans_bg">30.0dip</dimen>
+    <dimen name="opa_line_x_trans_ry">15.0dip</dimen>
+    <dimen name="opa_line_y_translation">16.0dip</dimen>
 
 </resources>
