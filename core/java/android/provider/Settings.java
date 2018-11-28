@@ -4394,6 +4394,17 @@ public final class Settings {
          */
         public static final String FORCE_AMBIENT_FOR_MEDIA = "force_ambient_for_media";
 
+        /**
+        * @hide
+         * Whether to set a lower brightness level when enabling night mode
+         * 0: Disabled
+         * 1: Set the brightness to a very low value
+         * 2: Set the brightness to a low value
+         * 3: Set the brightness to a medium value
+         * @hide
+         */
+        public static final String NIGHT_BRIGHTNESS_VALUE = "night_brightness_value";
+
         /** End of ABC system settings**/
 
         /**
