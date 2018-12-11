@@ -955,6 +955,10 @@ public class NotificationEntryManager implements Dumpable, NotificationInflater.
         return !mPresenter.isDozing() && mLessBoringHeadsUp && !isImportantHeadsUp;
     }
 
+    public void onOverlayChanged() {
+        updateNotificationsOnDensityOrFontScaleChanged();
+    }
+
     protected boolean shouldPeek(NotificationData.Entry entry) {
         return shouldPeek(entry, entry.notification);
     }
