@@ -25,8 +25,6 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
@@ -197,13 +195,13 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
             KeyguardSliceButton button = mRow.findViewWithTag(itemTag);
             if (button == null) {
                 button = new KeyguardSliceButton(mContext);
-                button.isWeatherDrawable(isWeatherSlice);
+                button.setShouldTintDrawable(!isWeatherSlice);
                 button.setTextColor(blendedColor);
                 button.setTag(itemTag);
                 final int viewIndex = i - (mHasHeader ? 1 : 0);
                 mRow.addView(button, viewIndex);
             }else{
-                button.isWeatherDrawable(isWeatherSlice);
+                button.setShouldTintDrawable(!isWeatherSlice);
             }
 
             PendingIntent pendingIntent = null;
@@ -473,14 +471,6 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
             }
             mDarkAmount = darkAmount;
             setLayoutAnimationListener(isAwake ? null : mKeepAwakeListener);
-
-            int childCount = getChildCount();
-            for (int i = 0; i < childCount; i++) {
-                View child = getChildAt(i);
-                if (child instanceof KeyguardSliceButton) {
-                    ((KeyguardSliceButton) child).setIsDark(darkAmount == 1);
-                }
-            }
         }
 
         @Override
@@ -496,9 +486,7 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
     static class KeyguardSliceButton extends Button implements
             ConfigurationController.ConfigurationListener {
 
-        private boolean isDark;
-        private boolean isWeatherDrawable;
-
+        private boolean shouldTintDrawable = true;
         public KeyguardSliceButton(Context context) {
             super(context, null /* attrs */, 0 /* styleAttr */,
                     com.android.keyguard.R.style.TextAppearance_Keyguard_Secondary);
@@ -506,12 +494,8 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
             setEllipsize(TruncateAt.END);
         }
 
-        public void isWeatherDrawable(boolean isWeather){
-            this.isWeatherDrawable = isWeather;
-        }
-
-        public void setIsDark(boolean dark){
-            this.isDark = dark;
+        public void setShouldTintDrawable(boolean shouldTintDrawable){
+            this.shouldTintDrawable = shouldTintDrawable;
         }
 
         @Override
@@ -561,15 +545,9 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
         }
 
         private void updateDrawableColors() {
-            if (isWeatherDrawable){
-                for (Drawable drawable : getCompoundDrawables()) {
-                    if (drawable != null) {
-                        convertToGrayscale(drawable, isDark);
-                    }
-                }
+            if (!shouldTintDrawable){
                 return;
             }
-
             final int color = getCurrentTextColor();
             for (Drawable drawable : getCompoundDrawables()) {
                 if (drawable != null) {
@@ -577,17 +555,6 @@ public class KeyguardSliceView extends LinearLayout implements View.OnClickListe
                 }
             }
         }
-    }
-
-    protected static void convertToGrayscale(Drawable drawable, boolean isDark) {
-        if (!isDark) {
-            drawable.setColorFilter(null);
-            return;
-        }
-        ColorMatrix matrix = new ColorMatrix();
-        matrix.setSaturation(0.6f);
-        ColorMatrixColorFilter filter = new ColorMatrixColorFilter(matrix);
-        drawable.setColorFilter(filter);
     }
 
     /**
