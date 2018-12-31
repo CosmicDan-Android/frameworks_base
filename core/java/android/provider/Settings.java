@@ -4119,6 +4119,10 @@ public final class Settings {
         /** Beginning of ABC system settings**/
 
         /**
+         * Select which lockscreen clock style to display
+         * @hide
+         */
+        public static final String LOCKSCREEN_CLOCK_SELECTION = "lockscreen_clock_selection";
 
         /**
          * Select various accents to go along with system themes
