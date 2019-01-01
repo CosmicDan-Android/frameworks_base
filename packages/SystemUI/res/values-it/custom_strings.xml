@@ -34,4 +34,5 @@
     <string name="screenrecord_show_hint">Mostra hint</string>
     <string name="screenrecord_notif_completed">Registrazione schermo completata</string>
     <string name="screenrecord_notif_final_ticker">Registrazione schermo completata</string>
+    <string name="ambientmusic_songinfo">%s di %s</string>
 </resources>
