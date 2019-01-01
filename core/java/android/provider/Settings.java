@@ -8326,9 +8326,9 @@ public final class Settings {
 
         /**
          * AM/PM Style for clock options
-         * 0 - Normal AM/PM
+         * 0 - No AM/PM  (default)
          * 1 - Small AM/PM
-         * 2 - No AM/PM  (default)
+         * 2 - Normal AM/PM
          * @hide
          */
         public static final String STATUSBAR_CLOCK_AM_PM_STYLE = "statusbar_clock_am_pm_style";

@@ -509,7 +509,7 @@ public class Clock extends TextView implements DemoMode, Tunable, CommandQueue.C
             case (STATUSBAR_CLOCK_AM_PM_STYLE):
                 boolean is24hour = DateFormat.is24HourFormat(getContext(), mCurrentUserId);
                 if (newValue == null) {
-                    newValue = "2"; // no am/pm
+                    newValue = "0"; // no am/pm
                 }
                 int amPmStyle = Integer.parseInt(newValue);
                 mAmPmStyle = is24hour ? AM_PM_STYLE_GONE : amPmStyle;
