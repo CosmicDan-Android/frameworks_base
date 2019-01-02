@@ -195,37 +195,31 @@ public class KeyguardSliceProvider extends SliceProvider implements
 
     private WeatherClient mWeatherClient;
     private WeatherClient.WeatherInfo mWeatherInfo;
-    private boolean mUseMetricUnit;
-    private boolean mWeatherDataAvailable;
-    private int mTemperatureMetric, mTemperatureImperial;
-    private Icon mConditionIcon;
+    private boolean useMetricUnit;
 
     protected void addWeather(ListBuilder builder) {
-        if (!mWeatherDataAvailable) {
+        if (mWeatherInfo == null || mWeatherInfo.getStatus() != WeatherClient.WEATHER_UPDATE_SUCCESS) {
             return;
         }
-        String temperatureText = mUseMetricUnit ?
-                Integer.toString(mTemperatureMetric) + "°C" :
-                Integer.toString(mTemperatureImperial) + "°F";
+        if (mWeatherInfo.getWeatherConditionImage() == 0){
+            Log.d("WeatherClient", "addWeather: Not adding because weather condition image is unknown");
+            return;
+        }
+        int temperatureMetric = mWeatherInfo.getTemperature(true);
+        int temperatureImperial = mWeatherInfo.getTemperature(false);
+        String temperatureText = useMetricUnit ?
+                                 Integer.toString(temperatureMetric) + "°C" :
+                                 Integer.toString(temperatureImperial) + "°F";
+        Icon conditionIcon = Icon.createWithResource(getContext(), mWeatherInfo.getWeatherConditionImage());
         RowBuilder weatherRowBuilder = new RowBuilder(builder, mWeatherUri)
                 .setTitle(temperatureText)
-                .addEndItem(mConditionIcon);
+                .addEndItem(conditionIcon);
         builder.addRow(weatherRowBuilder);
     }
 
     @Override
     public void onWeatherUpdated(WeatherClient.WeatherInfo weatherInfo) {
         mWeatherInfo = weatherInfo;
-        if (mWeatherInfo == null || mWeatherInfo.getStatus() != WeatherClient.WEATHER_UPDATE_SUCCESS ||
-                mWeatherInfo.getWeatherConditionImage() == 0) {
-            mWeatherDataAvailable = false;
-            return;
-        } else {
-            mWeatherDataAvailable = true;
-        }
-        mConditionIcon = Icon.createWithResource(getContext(), mWeatherInfo.getWeatherConditionImage());
-        mTemperatureMetric = mWeatherInfo.getTemperature(true);
-        mTemperatureImperial = mWeatherInfo.getTemperature(false);
         mContentResolver.notifyChange(mSliceUri, null /* observer */);
     }
 
@@ -240,22 +234,20 @@ public class KeyguardSliceProvider extends SliceProvider implements
             mContentResolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.WEATHER_LOCKSCREEN_UNIT),
                     false, this, UserHandle.USER_ALL);
-            mHandler.post(KeyguardSliceProvider.this::updateWeatherSettings);
         }
 
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             super.onChange(selfChange, uri);
             if (uri.equals(Settings.System.getUriFor(Settings.System.WEATHER_LOCKSCREEN_UNIT))) {
-                mHandler.post(KeyguardSliceProvider.this::updateWeatherSettings);
+                updateLockscreenUnit();
+                mContentResolver.notifyChange(mSliceUri, null /* observer */);
             }
         }
-    }
 
-    public void updateWeatherSettings() {
-        mUseMetricUnit = Settings.System.getIntForUser(mContentResolver,
-                Settings.System.WEATHER_LOCKSCREEN_UNIT, 0, UserHandle.USER_CURRENT) == 0;
-        mContentResolver.notifyChange(mSliceUri, null /* observer */);
+        public void updateLockscreenUnit() {
+            useMetricUnit = Settings.System.getIntForUser(mContentResolver, Settings.System.WEATHER_LOCKSCREEN_UNIT, 0, UserHandle.USER_CURRENT) == 0;
+        }
     }
 
     @Override
@@ -268,6 +260,7 @@ public class KeyguardSliceProvider extends SliceProvider implements
         mZenModeController.addCallback(this);
         mWeatherSettingsObserver = new WeatherSettingsObserver(mHandler);
         mWeatherSettingsObserver.observe();
+        mWeatherSettingsObserver.updateLockscreenUnit();
         mWeatherClient = new WeatherClient(getContext());
         mWeatherClient.addObserver(this);
         mDatePattern = getContext().getString(R.string.system_ui_aod_date_pattern);
