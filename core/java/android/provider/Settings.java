@@ -4387,12 +4387,6 @@ public final class Settings {
        public static final String BATTERY_LIGHT_REALLYFULL_COLOR = "battery_light_reallyfull_color";
 
         /**
-         * Apps to hide in the ChooserActivity
-         * @hide
-         */
-        public static final String CHOOSER_ACTIVITY_BLACKLIST = "chooser_activity_blacklist";
-
-        /**
          * Wheter to play notification sound and vibration if screen is on
          * @hide
          */
