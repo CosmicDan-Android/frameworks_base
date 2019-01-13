@@ -373,10 +373,6 @@
     <string name="power_remaining_duration_only_enhanced" msgid="4189311599812296592">"About <xliff:g id="TIME_REMAINING">%1$s</xliff:g> left based on your usage"</string>
     <string name="power_discharging_duration_enhanced" msgid="1992003260664804080">"About <xliff:g id="TIME_REMAINING">%1$s</xliff:g> left based on your usage (<xliff:g id="LEVEL">%2$s</xliff:g>)"</string>
     <string name="power_remaining_duration_only_short" msgid="3463575350656389957">"<xliff:g id="TIME_REMAINING">%1$s</xliff:g> left"</string>
-    <string name="power_discharge_by_enhanced" msgid="2095821536747992464">"Should last until about <xliff:g id="TIME">%1$s</xliff:g> based on your usage (<xliff:g id="LEVEL">%2$s</xliff:g>)"</string>
-    <string name="power_discharge_by_only_enhanced" msgid="2175151772952365149">"Should last until about <xliff:g id="TIME">%1$s</xliff:g> based on your usage"</string>
-    <string name="power_discharge_by" msgid="6453537733650125582">"Should last until about <xliff:g id="TIME">%1$s</xliff:g> (<xliff:g id="LEVEL">%2$s</xliff:g>)"</string>
-    <string name="power_discharge_by_only" msgid="107616694963545745">"Should last until about <xliff:g id="TIME">%1$s</xliff:g>"</string>
     <string name="power_remaining_less_than_duration_only" msgid="5996752448813295329">"Less than <xliff:g id="THRESHOLD">%1$s</xliff:g> remaining"</string>
     <string name="power_remaining_less_than_duration" msgid="5751885147712659423">"Less than <xliff:g id="THRESHOLD">%1$s</xliff:g> remaining (<xliff:g id="LEVEL">%2$s</xliff:g>)"</string>
     <string name="power_remaining_more_than_subtext" msgid="3176771815132876675">"More than <xliff:g id="TIME_REMAINING">%1$s</xliff:g> remaining (<xliff:g id="LEVEL">%2$s</xliff:g>)"</string>
@@ -391,7 +387,6 @@
     <string name="power_remaining_charging_duration_only" msgid="1421102457410268886">"<xliff:g id="TIME">%1$s</xliff:g> left until fully charged"</string>
     <string name="power_charging_duration" msgid="4676999980973411875">"<xliff:g id="LEVEL">%1$s</xliff:g> – <xliff:g id="TIME">%2$s</xliff:g> until fully charged"</string>
     <string name="battery_info_status_unknown" msgid="196130600938058547">"Unknown"</string>
-    <string name="battery_info_status_charging" msgid="1705179948350365604">"Charging"</string>
     <string name="battery_info_status_charging_lower" msgid="8689770213898117994">"charging"</string>
     <string name="battery_info_status_discharging" msgid="310932812698268588">"Not charging"</string>
     <string name="battery_info_status_not_charging" msgid="8523453668342598579">"Plugged in, can\'t charge right now"</string>
