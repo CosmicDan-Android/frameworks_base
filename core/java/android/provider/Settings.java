@@ -4430,6 +4430,25 @@ public final class Settings {
          */
         public static final String NIGHT_BRIGHTNESS_VALUE = "night_brightness_value";
 
+        /**
+         * 0 - default QS/settings icons
+         * 1 - Descendant default QS/settings icons
+         * 2 - square QS/settings icons
+         * 3 - "super bubble" QS/settings icons
+         * 4 - teardrop QS/settings icons
+         * @hide
+         */
+        public static final String SYSTEM_ICON_SWITCHER = "system_icon_switcher";
+
+        /**
+         * 0 - default UI 
+         * 1 - roundier UI
+         * 2 - square UI
+         * @hide
+         */
+
+        public static final String UI_SWITCHER = "ui_switcher";
+
         /** End of ABC system settings**/
 
         /**
