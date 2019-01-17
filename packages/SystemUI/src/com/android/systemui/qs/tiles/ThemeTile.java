@@ -286,7 +286,7 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
 
         @Override
         public int getMetricsCategory() {
-            return MetricsEvent.ABC;
+            return MetricsEvent.DESCENDANT_SETTINGS;
         }
 
         @Override
@@ -355,7 +355,7 @@ public class ThemeTile extends QSTileImpl<BooleanState> {
 
     @Override
     public int getMetricsCategory() {
-        return MetricsEvent.ABC;
+        return MetricsEvent.DESCENDANT_SETTINGS;
     }
 
     @Override
