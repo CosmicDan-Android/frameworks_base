@@ -77,7 +77,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
-import com.android.internal.util.du.Utils;
+import com.android.internal.util.descendant.Utils;
 import com.android.systemui.R;
 import com.android.systemui.SystemUI;
 import com.android.systemui.util.NotificationChannels;

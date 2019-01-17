@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.android.internal.util.du;
+package com.android.internal.util.descendant;
 
 import android.Manifest;
 import android.app.ActivityManager;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 ABC ROM
+ * Copyright (C) 2018 Descendant
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -122,6 +122,6 @@ public class ImmersiveTile extends QSTileImpl<BooleanState> {
 
     @Override
     public int getMetricsCategory() {
-        return MetricsEvent.ABC;
+        return MetricsEvent.DESCENDANT_SETTINGS;
     }
 }

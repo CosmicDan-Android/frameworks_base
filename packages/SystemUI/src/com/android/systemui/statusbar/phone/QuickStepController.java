@@ -60,7 +60,7 @@ import com.android.systemui.plugins.statusbar.phone.NavGesture.GestureHelper;
 import com.android.systemui.shared.recents.IOverviewProxy;
 import com.android.systemui.shared.recents.utilities.Utilities;
 import com.android.systemui.shared.system.NavigationBarCompat;
-import com.android.internal.util.du.Utils;
+import com.android.internal.util.descendant.Utils;
 
 /**
  * Class to detect gestures on the navigation bar and implement quick scrub.
