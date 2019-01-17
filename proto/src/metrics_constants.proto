@@ -6497,7 +6497,7 @@ message MetricsEvent {
     // Add new aosp constants above this line.
     // END OF AOSP CONSTANTS
 
-    // ABC custom constants
-    ABC = 1500;
+    //Descendant custom constants
+    DESCENDANT_SETTINGS = 1800;
   }
 }
