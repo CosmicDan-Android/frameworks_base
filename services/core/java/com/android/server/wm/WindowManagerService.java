@@ -268,6 +268,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
 /** {@hide} */
 public class WindowManagerService extends IWindowManager.Stub
         implements Watchdog.Monitor, WindowManagerPolicy.WindowManagerFuncs {
@@ -7617,6 +7618,11 @@ public class WindowManagerService extends IWindowManager.Stub
                 mWindowPlacerLocked.performSurfacePlacement();
             }
         }
+    }
+
+    @Override
+    public void sendCustomAction(Intent intent) {
+        mPolicy.sendCustomAction(intent);
     }
 
     @Override

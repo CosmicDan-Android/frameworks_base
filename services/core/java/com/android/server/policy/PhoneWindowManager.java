@@ -2744,6 +2744,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
 
             mGlobalActionsOnLockDisable = Settings.Secure.getIntForUser(resolver,
                     Settings.Secure.LOCK_POWER_MENU_DISABLED, 1,
+                    UserHandle.USER_CURRENT) != 0;
+                    
             mUseGestureButton = Settings.System.getIntForUser(resolver,
                     Settings.System.DESCENDANT_USE_BOTTOM_GESTURE_NAVIGATION, 0,
                     UserHandle.USER_CURRENT) != 0;
@@ -9408,6 +9410,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         return mGestureButton.isGestureButtonRegion(x, y);
     }
      @Override
-    public boolean isGestureButtonEnabled() {
+        public boolean isGestureButtonEnabled() {
         return mUseGestureButton;
     }
+}
