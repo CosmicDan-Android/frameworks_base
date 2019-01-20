@@ -4449,6 +4449,32 @@ public final class Settings {
         private static final Validator DESCENDANT_USE_BOTTOM_GESTURE_NAVIGATION_VALIDATOR =
                 BOOLEAN_VALIDATOR;
 
+        /**
+         * Wether navigation bar is enabled or not
+         * @hide
+         */
+        public static final String NAVIGATION_BAR_SHOW = "navigation_bar_show";
+
+        /**
+         * 0 - default QS/settings icons
+         * 1 - Descendant default QS/settings icons
+         * 2 - square QS/settings icons
+         * 3 - "super bubble" QS/settings icons
+         * 4 - teardrop QS/settings icons
+         * @hide
+         */
+        public static final String SYSTEM_ICON_SWITCHER = "system_icon_switcher";
+
+
+        /**
+         * 0 - default UI 
+         * 1 - roundier UI
+         * 2 - square UI
+         * @hide
+         */
+
+        public static final String UI_SWITCHER = "ui_swicher";
+
         /** End of ABC system settings**/
         
         /**
