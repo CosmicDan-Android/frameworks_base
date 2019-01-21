@@ -73,4 +73,8 @@
     <!-- Toast -->
     <color name="toast_bg">@color/white</color>
     <color name="toast_text">@color/black</color>
+
+    <!-- Homepage backgrounds -->
+    <color name="homepage_background_color">@color/white</color>
+
 </resources>
