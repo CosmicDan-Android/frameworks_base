@@ -2618,7 +2618,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         mNavigationBarCanMove = width != height && shortSizeDp < 600;
 
         // reflects original device state from config or build prop, regardless of user settings
-        mHasNavigationBar = DescendantUtils.deviceSupportNavigationBar(mContext);
+        mHasNavigationBar = Utils.deviceSupportNavigationBar(mContext);
 
         // For demo purposes, allow the rotation of the HDMI display to be controlled.
         // By default, HDMI locks rotation to landscape.
@@ -2723,7 +2723,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             enableSwipeThreeFingerGesture(threeFingerGesture);
 
             // navbar
-            mHasNavigationBar = DescendantUtils.deviceSupportNavigationBar(mContext);
+            mHasNavigationBar = Utils.deviceSupportNavigationBar(mContext);
 
             // Configure rotation lock.
             int userRotation = Settings.System.getIntForUser(resolver,

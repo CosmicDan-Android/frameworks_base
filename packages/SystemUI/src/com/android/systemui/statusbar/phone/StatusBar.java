@@ -4093,16 +4093,19 @@ public class StatusBar extends SystemUI implements DemoMode,
                         om.setEnabled("org.descendant.UI.system.roundier", false, userId);
                         om.setEnabled("org.descendant.UI.android.square", false, userId);
                         om.setEnabled("org.descendant.UI.system.square", false, userId);
+                        reevaluateStyles();
                         break;
                 case 1: om.setEnabled("org.descendant.UI.android.roundier", false, userId);
                         om.setEnabled("org.descendant.UI.system.roundier", false, userId);
                         om.setEnabled("org.descendant.UI.android.square", true, userId);
                         om.setEnabled("org.descendant.UI.system.square", true, userId);
+                        reevaluateStyles();
                         break;
                 case 2: om.setEnabled("org.descendant.UI.android.roundier", true, userId);                                  
                         om.setEnabled("org.descendant.UI.system.roundier", true, userId);
                         om.setEnabled("org.descendant.UI.android.square", false, userId);
                         om.setEnabled("org.descendant.UI.system.square", false, userId);
+                        reevaluateStyles();
                         break;
             }
         } catch (RemoteException e) {
@@ -5256,7 +5259,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     private void updateNavigationBar() {
-        mShowNavBar = DescendantUtils.deviceSupportNavigationBarForUser(mContext,
+        mShowNavBar = Utils.deviceSupportNavigationBarForUser(mContext,
                               mLockscreenUserManager.getCurrentUserId());
         if (mShowNavBar) {
             if (mNavigationBarView == null) {
@@ -5467,9 +5470,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                 setForceAmbient();
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.LOCKSCREEN_CLOCK_SELECTION))) {
                 updateKeyguardStatusSettings();
-            } else if (uri.equals(Settings.Secure.getUriFor(Settings.System.UI_SWITCHER))) {
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.UI_SWITCHER))) {
                 uiSwitcher(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
-            } else if (uri.equals(Settings.Secure.getUriFor(Settings.System.SYSTEM_ICON_SWITCHER))) {
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.SYSTEM_ICON_SWITCHER))) {
                 systemIconSwitcher();
             }
         }

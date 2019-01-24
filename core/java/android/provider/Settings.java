@@ -4470,7 +4470,7 @@ public final class Settings {
          * @hide
          */
 
-        public static final String UI_SWITCHER = "ui_swicher";
+        public static final String UI_SWITCHER = "ui_switcher";
 
         /** End of ABC system settings**/
         
