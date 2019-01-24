@@ -49,7 +49,7 @@ import android.widget.Toast;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
-import com.android.internal.util.du.Utils;
+import com.android.internal.util.descendant.Utils;
 import com.android.systemui.Dependency;
 import com.android.systemui.EventLogConstants;
 import com.android.systemui.EventLogTags;

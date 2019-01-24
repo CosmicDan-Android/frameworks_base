@@ -5430,7 +5430,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             setForceAmbient();
             updateKeyguardStatusSettings();
             systemIconSwitcher();
-            uiSelector(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+            uiSwitcher(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
         }
     }
 
