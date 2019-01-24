@@ -31,4 +31,7 @@
     <dimen name="net_traffic_multi_text_size">8dp</dimen>
     <dimen name="net_traffic_txt_img_padding">2dp</dimen>
 
+    <!-- Slider heighht -->
+    <dimen name="slider_height">100dp</dimen>
+
 </resources>
