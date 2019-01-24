@@ -17,7 +17,7 @@ Copyright (C) 2019 Descendant
 
 <shape android:shape="oval"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#f2ffffff" />
-    <stroke android:width="2.0dip" android:color="#ffffffff" />
+    <solid android:color="@android:color/transparent" />
+    <stroke android:width="2.0dip" android:color="?android:attr/colorAccent" />
     <size android:height="24dp" android:width="24dp" />
 </shape>
