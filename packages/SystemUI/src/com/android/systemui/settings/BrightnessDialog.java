@@ -68,58 +68,10 @@ public class BrightnessDialog extends Activity {
                 R.layout.quick_settings_brightness_dialog, null);
         setContentView(brightnessView);
 
-        final ImageView icon = findViewById(R.id.brightness_icon);
         final ToggleSliderView slider = findViewById(R.id.brightness_slider);
 
-        mBrightnessController = new BrightnessController(this, icon, slider);
+        mBrightnessController = new BrightnessController(this, slider);
 
-        ImageView minBrightness = brightnessView.findViewById(R.id.brightness_left);
-        minBrightness.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentValue = Settings.System.getIntForUser(resolver,
-                        Settings.System.SCREEN_BRIGHTNESS, 0, UserHandle.USER_CURRENT);
-                int brightness = currentValue - 2;
-                if (currentValue != 0) {
-                    int math = Math.max(0, brightness);
-                    Settings.System.putIntForUser(resolver,
-                            Settings.System.SCREEN_BRIGHTNESS, math, UserHandle.USER_CURRENT);
-                }
-            }
-        });
-
-        minBrightness.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                setBrightnessMinMax(true);
-                mVibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
-                return true;
-            }
-        });
-
-        ImageView maxBrightness = brightnessView.findViewById(R.id.brightness_right);
-        maxBrightness.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int currentValue = Settings.System.getIntForUser(resolver,
-                        Settings.System.SCREEN_BRIGHTNESS, 0, UserHandle.USER_CURRENT);
-                int brightness = currentValue + 2;
-                if (currentValue != 255) {
-                    int math = Math.min(255, brightness);
-                    Settings.System.putIntForUser(resolver,
-                            Settings.System.SCREEN_BRIGHTNESS, math, UserHandle.USER_CURRENT);
-                }
-            }
-        });
-
-        maxBrightness.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                setBrightnessMinMax(false);
-                mVibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE));
-                return true;
-            }
-        });
     }
 
     private void setBrightnessMinMax(boolean min) {
