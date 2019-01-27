@@ -141,6 +141,7 @@ import com.android.internal.statusbar.NotificationVisibility;
 import com.android.internal.statusbar.StatusBarIcon;
 import com.android.internal.statusbar.ThemeAccentUtils;
 import com.android.internal.util.descendant.Utils;
+import com.android.internal.statusbar.ThemeUtils;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.internal.widget.MessagingGroup;
 import com.android.internal.widget.MessagingMessage;
@@ -4024,60 +4025,16 @@ public class StatusBar extends SystemUI implements DemoMode,
     protected void systemIconSwitcher() {
         int iconThemeSetting = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.SYSTEM_ICON_SWITCHER, 0, mLockscreenUserManager.getCurrentUserId());
-            try {
-                switch (iconThemeSetting) {
-                    case 0: mOverlayManager.setEnabled("org.descendant.qs.teardrop.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.superbubble.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.square.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.descendant.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.teardrop.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.superbubble.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.square.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.zen.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.descendant.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            break;
-                    case 1: mOverlayManager.setEnabled("org.descendant.qs.teardrop.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.superbubble.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.square.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.descendant.overlay", true, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.teardrop.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.superbubble.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.square.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.zen.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.descendant.overlay", true, mLockscreenUserManager.getCurrentUserId());
-                            break;
-                    case 2: mOverlayManager.setEnabled("org.descendant.qs.teardrop.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.descendant.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.superbubble.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.square.overlay", true, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.zen.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.teardrop.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.descendant.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.superbubble.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.square.overlay", true, mLockscreenUserManager.getCurrentUserId());
-                            break;
-                    case 3: mOverlayManager.setEnabled("org.descendant.qs.teardrop.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.descendant.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.square.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.superbubble.overlay", true, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.teardrop.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.descendant.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.square.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.superbubble.overlay", true, mLockscreenUserManager.getCurrentUserId());
-                            break;
-                    case 4: mOverlayManager.setEnabled("org.descendant.qs.superbubble.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.descendant.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.square.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.qs.teardrop.overlay", true, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.superbubble.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.descendant.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.square.overlay", false, mLockscreenUserManager.getCurrentUserId());
-                            mOverlayManager.setEnabled("org.descendant.settings.teardrop.overlay", true, mLockscreenUserManager.getCurrentUserId());
-                            break;
-                            }
-            } catch(RemoteException e) {
-                    Log.w(TAG, "Can't change QS/Settings icons!", e);
-                    }
+        if (iconThemeSetting == 0) {
+            ThemeUtils.unloadIconsThemes(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+            reevaluateStyles();
+        }
+
+        else {
+            ThemeUtils.unloadIconsThemes(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+            ThemeUtils.loadIconsThemes(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), iconThemeSetting);
+            reevaluateStyles();
+        }    
     }
 
 
@@ -4087,29 +4044,15 @@ public class StatusBar extends SystemUI implements DemoMode,
     protected void uiSwitcher(IOverlayManager om, int userId) {
         int uiSelectorSetting = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.UI_SWITCHER, 0, mLockscreenUserManager.getCurrentUserId());
-        try {
-            switch (uiSelectorSetting) {
-                case 0: om.setEnabled("org.descendant.UI.android.roundier", false, userId);
-                        om.setEnabled("org.descendant.UI.system.roundier", false, userId);
-                        om.setEnabled("org.descendant.UI.android.square", false, userId);
-                        om.setEnabled("org.descendant.UI.system.square", false, userId);
-                        reevaluateStyles();
-                        break;
-                case 1: om.setEnabled("org.descendant.UI.android.roundier", false, userId);
-                        om.setEnabled("org.descendant.UI.system.roundier", false, userId);
-                        om.setEnabled("org.descendant.UI.android.square", true, userId);
-                        om.setEnabled("org.descendant.UI.system.square", true, userId);
-                        reevaluateStyles();
-                        break;
-                case 2: om.setEnabled("org.descendant.UI.android.roundier", true, userId);                                  
-                        om.setEnabled("org.descendant.UI.system.roundier", true, userId);
-                        om.setEnabled("org.descendant.UI.android.square", false, userId);
-                        om.setEnabled("org.descendant.UI.system.square", false, userId);
-                        reevaluateStyles();
-                        break;
-            }
-        } catch (RemoteException e) {
-            Log.w(TAG, "Can't change UI!", e);
+        if (uiSelectorSetting == 0) {
+            ThemeUtils.unloadUiThemes(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+            reevaluateStyles();
+        }
+
+        else {
+            ThemeUtils.unloadUiThemes(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+            ThemeUtils.loadUiThemes(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), uiSelectorSetting);
+            reevaluateStyles();
         }
     }
 
@@ -6130,3 +6073,5 @@ public class StatusBar extends SystemUI implements DemoMode,
                 }
             };
 }
+
+
