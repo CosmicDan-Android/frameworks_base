@@ -44,6 +44,12 @@ public class ThemeUtils {
             "org.descendant.generic.wellbeing.overlay",
         };
 
+        private static final String[] LEMONICONTHEMES = {
+            "org.descendant.qs.lemon.overlay",
+            "org.descendant.settings.lemon.overlay",
+            "org.descendant.generic.wellbeing.overlay",
+        };
+        
         private static final String[] TEARDROPICONTHEMES = {
             "org.descendant.qs.teardrop.overlay",
             "org.descendant.settings.teardrop.overlay",
@@ -67,6 +73,7 @@ public class ThemeUtils {
         /*keep a list of iconthemes and ui arrays name */
         public static final String[][] ARRAYSICONTHEMES = {
             DESCENDANTICONTHEMES,
+            LEMONICONTHEMES,
             TEARDROPICONTHEMES,
             SUPERBUBBLEICONTHEMES,
             SQUAREICONTHEMES,
@@ -160,8 +167,16 @@ public class ThemeUtils {
                                   }
                             }
                     break;
+                    case 5: for (int i = 0; i < LEMONICONTHEMES.length; i++) {
+                              try {
+                                  om.setEnabled(LEMONICONTHEMES[i], true, userId);
+                                  } catch (RemoteException e) {
+                                    Log.e(TAG, "loadIconsThemes routine has failed!");
+                                  }
+                            }
+                    break;
+
                 }
            }
         /* end of methods to unload and load icons plus ui themes */
-
 }
