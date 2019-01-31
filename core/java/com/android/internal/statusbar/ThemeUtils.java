@@ -114,21 +114,22 @@ public class ThemeUtils {
 
         public static void loadUiThemes(IOverlayManager om, int userId, int setting) {
                 switch (setting) {
-                    case 1: for (int i = 0; i < ROUNDIERUITHEME.length; i++) {
+                    case 1: for (int i = 0; i < SQUAREUITHEME.length; i++) {
+                              try {
+                                  om.setEnabled(SQUAREUITHEME[i], true, userId);
+                                  } catch(RemoteException e) {
+                                    Log.e(TAG,"loadUiThemes routine has failed!");
+                                  }
+                            }
+                    break;
+
+                    case 2: for (int i = 0; i < ROUNDIERUITHEME.length; i++) {
                               try {
                                   om.setEnabled(ROUNDIERUITHEME[i], true, userId);
                                   } catch(RemoteException e) {
                                     Log.e(TAG,"loadUiThemes routine has failed!");
                                   }
                             }
-                    break;
-                    case 2: for (int i = 0; i < SQUAREUITHEME.length; i++) {
-                              try {
-                                  om.setEnabled(SQUAREUITHEME[i], true, userId);
-                                  } catch(RemoteException e) {
-                                    Log.e(TAG,"loadUiThemes routine has failed!");
-                                  } 
-                            } 
                     break;
                 }
         }
