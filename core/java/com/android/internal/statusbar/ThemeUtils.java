@@ -42,12 +42,14 @@ public class ThemeUtils {
             "org.descendant.settings.descendant.overlay",
             "org.descendant.settings.descendant.overlay",
             "org.descendant.generic.wellbeing.overlay",
+            "org.descendant.generic.gms.overlay",
         };
 
         private static final String[] LEMONICONTHEMES = {
             "org.descendant.qs.lemon.overlay",
             "org.descendant.settings.lemon.overlay",
             "org.descendant.generic.wellbeing.overlay",
+            "org.descendant.generic.gms.overlay",
         };
         
         private static final String[] TEARDROPICONTHEMES = {
@@ -55,18 +57,21 @@ public class ThemeUtils {
             "org.descendant.settings.teardrop.overlay",
             "org.descendant.settings.teardrop.overlay",
             "org.descendant.generic.wellbeing.overlay",
+            "org.descendant.generic.gms.overlay",
         };
 
         private static final String[] SUPERBUBBLEICONTHEMES = {
             "org.descendant.qs.superbubble.overlay",
             "org.descendant.settings.superbubble.overlay",
             "org.descendant.generic.wellbeing.overlay",
+            "org.descendant.generic.gms.overlay",
         };
 
         private static final String[] SQUAREICONTHEMES = {
             "org.descendant.qs.square.overlay",
             "org.descendant.settings.square.overlay",
             "org.descendant.generic.wellbeing.overlay",
+            "org.descendant.generic.gms.overlay",
         };
         /* end of icon and ui themes arrays */
 
