@@ -4430,6 +4430,12 @@ public final class Settings {
          */
         public static final String NIGHT_BRIGHTNESS_VALUE = "night_brightness_value";
 
+        /**
+         * Ambient screen settings
+         * "screen_brightness_array=0:1:2:3:4"
+         * @hide
+         */
+        public static final String ALWAYS_ON_DISPLAY_CONSTANTS_CUST = "always_on_display_constants_cust";
 
         /**
          * Whether to use the custom quick unlock screen control
@@ -4444,7 +4450,7 @@ public final class Settings {
          */
         public static final String THREE_FINGER_GESTURE = "three_finger_gesture";
 
-        /** End of ABC system settings**/
+        /** End of Descendant system settings**/
 
         /**
          * @hide
