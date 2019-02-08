@@ -29,7 +29,6 @@ import com.android.systemui.statusbar.stack.StackScrollState;
 public class FooterView extends StackScrollerDecorView {
     private final int mClearAllTopPadding;
     private FooterViewButton mDismissButton;
-    private FooterViewButton mManageButton;
 
     public FooterView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -50,16 +49,10 @@ public class FooterView extends StackScrollerDecorView {
     protected void onFinishInflate() {
         super.onFinishInflate();
         mDismissButton = (FooterViewButton) findSecondaryView();
-        mManageButton = findViewById(R.id.manage_text);
     }
 
     public void setTextColor(@ColorInt int color) {
-        mManageButton.setTextColor(color);
         mDismissButton.setTextColor(color);
-    }
-
-    public void setManageButtonClickListener(OnClickListener listener) {
-        mManageButton.setOnClickListener(listener);
     }
 
     public void setDismissButtonClickListener(OnClickListener listener) {
@@ -79,11 +72,6 @@ public class FooterView extends StackScrollerDecorView {
         mDismissButton.setText(R.string.clear_all_notifications_text);
         mDismissButton.setContentDescription(
                 mContext.getString(R.string.accessibility_clear_all));
-        mManageButton.setText(R.string.manage_notifications_text);
-    }
-
-    public boolean isButtonVisible() {
-        return mManageButton.getAlpha() != 0.0f;
     }
 
     @Override
