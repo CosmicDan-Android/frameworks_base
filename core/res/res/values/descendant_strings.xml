@@ -18,7 +18,7 @@
 */
 -->
 
-<resources>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
     <!-- SystemUI Restart -->
     <string name="systemui_restart_title">SystemUI restart required</string>
@@ -29,6 +29,7 @@
 
     <!-- ADB over network notification -->
     <string name="adb_net_active_notification_title">ADB over network enabled</string>
+
     <!-- ADB over USB and network notification -->
     <string name="adb_both_active_notification_title">ADB over USB &amp; network enabled</string>
 
