@@ -119,4 +119,9 @@
   <java-symbol type="dimen" name="nav_gesture_swipe_min_length" />
   <java-symbol type="dimen" name="nav_gesture_long_press_max_length" />
 
+  <!-- Seekbars -->
+  <java-symbol type="dimen" name="seekbar_track_material_width" />
+  <java-symbol type="dimen" name="seekbar_track_material_radius" />
+  <java-symbol type="dimen" name="seekbar_track_material_height" />
+
 </resources>

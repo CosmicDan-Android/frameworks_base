@@ -1,11 +1,8 @@
 <!-- Copyright (C) 2019 Descendant
-
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
      You may obtain a copy of the License at
-
           http://www.apache.org/licenses/LICENSE-2.0
-
      Unless required by applicable law or agreed to in writing, software
      distributed under the License is distributed on an "AS IS" BASIS,
      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -18,6 +15,7 @@
         <shape android:shape="rectangle"
                android:tint="#90808080">
             <size android:width="@dimen/seekbar_track_material_width" />
+            <size android:height="@dimen/seekbar_track_material_height" />
             <solid android:color="#90808080"/>
             <corners android:radius="@dimen/seekbar_track_material_radius"/>
         </shape>
@@ -28,9 +26,11 @@
             <shape android:shape="rectangle"
                    android:tint="?android:attr/colorAccent">
                 <size android:width="@dimen/seekbar_track_material_width" />
+                <size android:height="@dimen/seekbar_track_material_height" />
                 <solid android:color="?android:attr/colorAccent" />
                 <corners android:radius="@dimen/seekbar_track_material_radius"/>
             </shape>
         </scale>
     </item>
 </layer-list>
+
