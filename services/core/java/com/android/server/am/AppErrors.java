@@ -449,7 +449,11 @@ class AppErrors {
             }
 
             // Add paste content for dogbin option
+            String devfp = SystemProperties.get("ro.vendor.build.fingerprint", "");
+            String descVers = SystemProperties.get("org.descendant.full_ver", "");
             data.paste = "time: " + timeMillis + "\n" +
+            "device fp:" + devfp + "\n" +
+            "descendant vers:" + descVers + "\n" +
             "msg: " + longMsg + "\n" +
             "stacktrace: " + stackTrace;
           
