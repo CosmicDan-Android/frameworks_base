@@ -423,6 +423,8 @@ import com.android.internal.os.TransferPipe;
 import com.android.internal.os.Zygote;
 import com.android.internal.policy.IKeyguardDismissCallback;
 import com.android.internal.policy.KeyguardDismissCallback;
+import com.android.internal.statusbar.ThemeAccentUtils;
+import com.android.internal.statusbar.ThemeUtils;
 import com.android.internal.telephony.TelephonyIntents;
 import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.DumpUtils;
@@ -14750,26 +14752,17 @@ public class ActivityManagerService extends IActivityManager.Stub
 
     public final void disableOverlays() {
         try {
-            IOverlayManager iom = IOverlayManager.Stub.asInterface(
-                    ServiceManager.getService("overlay"));
-            if (iom == null) {
-                return;
-            }
-            Log.d(DESCENDANTTAG, "Contacting the Overlay Manager Service for the list of enabled overlays");
-            Map<String, List<OverlayInfo>> allOverlays = iom.getAllOverlays(UserHandle.USER_SYSTEM);
-            if (allOverlays != null) {
-                Log.d(DESCENDANTTAG, "The Overlay Manager Service provided the list of enabled overlays");
-                Set<String> set = allOverlays.keySet();
-                for (String targetPackageName : set) {
-                    for (OverlayInfo oi : allOverlays.get(targetPackageName)) {
-                        if (oi.isEnabled()) {
-                            iom.setEnabled(oi.packageName, false, UserHandle.USER_SYSTEM);
-                            Log.d(DESCENDANTTAG, "Now disabling \'" + oi.packageName + "\'");
-                        }
-                    }
+            IOverlayManager mOverlayManager = IOverlayManager.Stub.asInterface(
+            ServiceManager.getService("overlay"));
+                if (mOverlayManager == null) {
+                    return;
                 }
-            }
-        } catch (RemoteException re) {
+            Log.d(DESCENDANTTAG, "Disabling Descendant Overlays!");
+            ThemeUtils.unloadIconsThemes(mOverlayManager, UserHandle.USER_SYSTEM);
+            ThemeUtils.unloadUiThemes(mOverlayManager, UserHandle.USER_SYSTEM);
+            ThemeAccentUtils.unloadAccents(mOverlayManager, UserHandle.USER_SYSTEM);
+            ThemeAccentUtils.setLightDarkTheme(mOverlayManager, UserHandle.USER_SYSTEM, false);
+        } catch (Exception re) {
             re.printStackTrace();
             Log.d(DESCENDANTTAG, "RemoteException while trying to contact the Overlay Manager Service!");
         }
