@@ -18,8 +18,10 @@
 <resources>
 
     <!-- Brightness bar -->
-    <dimen name="brightness_drawable_corner">15dp</dimen>
+    <dimen name="brightness_drawable_corner">14dp</dimen>
     <dimen name="brightness_drawable_height">50dp</dimen>
+    <dimen name="brightness_drawable_button_height">15dp</dimen>
+    <dimen name="brightness_drawable_button_width">15dp</dimen>
 
     <!-- QS detail view scrolling -->
     <dimen name="qs_detail_item_height_twoline">72dp</dimen>
