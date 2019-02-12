@@ -129,4 +129,13 @@
   <java-symbol type="string" name="url_copy_success" />
   <java-symbol type="string" name="url_copy_failed" />
 
+  <!-- Switch Thumb -->
+  <java-symbol type="dimen" name="switch_thumb_material_anim_width" />
+  <java-symbol type="dimen" name="switch_thumb_material_anim_height" />
+  <java-symbol type="dimen" name="switch_thumb_material_anim_stroke_width" />
+
+  <!-- Switch Track Material -->
+  <java-symbol type="dimen" name="switch_track_material_height" />
+  <java-symbol type="dimen" name="switch_track_material_radius" />
+
 </resources>
