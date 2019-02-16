@@ -159,7 +159,7 @@
     <View
         android:id="@+id/qs_drag_handle_view"
         android:layout_width="@dimen/qs_drag_handle_view_width"
-        android:layout_height=@dimen/qs_drag_handle_view_height"
+        android:layout_height="@dimen/qs_drag_handle_view_height"
         android:layout_marginBottom="16dp"
         android:layout_gravity="center_horizontal|bottom"
         android:background="@drawable/qs_footer_drag_handle" />

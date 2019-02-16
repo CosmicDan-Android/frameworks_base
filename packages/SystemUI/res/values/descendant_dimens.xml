@@ -45,6 +45,6 @@
 
     <!-- QS drag handle -->
     <dimen name="qs_drag_handle_view_width">24dp</dimen>
-    <dimen name="qs_drag_handle_view_width">24dp</dimen>
+    <dimen name="qs_drag_handle_view_height">24dp</dimen>
 
 </resources>
