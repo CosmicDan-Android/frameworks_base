@@ -27,9 +27,6 @@
     <permission android:name="android.permission.systemui.IDENTITY"
         android:protectionLevel="signature" />
 
-    <!-- Overlay change perm -->
-    <uses-permission android:name="android.permission.CHANGE_OVERLAY_PACKAGES"/>
-
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -221,7 +218,6 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
-    <protected-broadcast android:name="android.permission.CHANGE_OVERLAY_PACKAGES" />
     <protected-broadcast android:name="com.android.settingslib.action.REGISTER_SLICE_RECEIVER" />
     <protected-broadcast android:name="com.android.settingslib.action.UNREGISTER_SLICE_RECEIVER" />
 

@@ -283,8 +283,6 @@ import android.content.IIntentReceiver;
 import android.content.IIntentSender;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.om.IOverlayManager;
-import android.content.om.OverlayInfo;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.ApplicationInfo.HiddenApiEnforcementPolicy;
@@ -425,8 +423,6 @@ import com.android.internal.os.TransferPipe;
 import com.android.internal.os.Zygote;
 import com.android.internal.policy.IKeyguardDismissCallback;
 import com.android.internal.policy.KeyguardDismissCallback;
-import com.android.internal.statusbar.ThemeAccentUtils;
-import com.android.internal.statusbar.ThemeUtils;
 import com.android.internal.telephony.TelephonyIntents;
 import com.android.internal.util.ArrayUtils;
 import com.android.internal.util.DumpUtils;
@@ -528,7 +524,6 @@ public class ActivityManagerService extends IActivityManager.Stub
      */
     public static final int TOP_APP_PRIORITY_BOOST = -10;
 
-    private static final String DESCENDANTTAG = "DescendantFallbackOPS";
     private static final String TAG = TAG_WITH_CLASS_NAME ? "ActivityManagerService" : TAG_AM;
     private static final String TAG_BACKUP = TAG + POSTFIX_BACKUP;
     private static final String TAG_BROADCAST = TAG + POSTFIX_BROADCAST;
@@ -14804,24 +14799,6 @@ public class ActivityManagerService extends IActivityManager.Stub
         lp.privateFlags |= WindowManager.LayoutParams.PRIVATE_FLAG_SHOW_FOR_ALL_USERS;
         ((WindowManager)mContext.getSystemService(
                 Context.WINDOW_SERVICE)).addView(v, lp);
-    }
-
-    public final void disableOverlays() {
-        try {
-            IOverlayManager mOverlayManager = IOverlayManager.Stub.asInterface(
-            ServiceManager.getService("overlay"));
-                if (mOverlayManager == null) {
-                    return;
-                }
-            Log.d(DESCENDANTTAG, "Disabling Descendant Overlays!");
-            ThemeUtils.unloadIconsThemes(mOverlayManager, UserHandle.USER_SYSTEM);
-            ThemeUtils.unloadUiThemes(mOverlayManager, UserHandle.USER_SYSTEM);
-            ThemeAccentUtils.unloadAccents(mOverlayManager, UserHandle.USER_SYSTEM);
-            ThemeAccentUtils.setLightDarkTheme(mOverlayManager, UserHandle.USER_SYSTEM, false);
-        } catch (Exception re) {
-            re.printStackTrace();
-            Log.d(DESCENDANTTAG, "RemoteException while trying to contact the Overlay Manager Service!");
-        }
     }
 
     @Override

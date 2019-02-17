@@ -1331,9 +1331,6 @@
         android:protectionLevel="signature|privileged" />
     <uses-permission android:name="android.permission.LOCATION_HARDWARE"/>
 
-    <!-- Overlay change perm -->
-    <uses-permission android:name="android.permission.CHANGE_OVERLAY_PACKAGES"/>
-
     <!-- @SystemApi Allows an application to create mock location providers for testing.
          <p>Protection level: signature
          @hide
