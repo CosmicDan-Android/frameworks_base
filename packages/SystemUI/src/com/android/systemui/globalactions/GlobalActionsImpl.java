@@ -42,9 +42,11 @@ import com.android.systemui.statusbar.CommandQueue;
 import com.android.systemui.statusbar.policy.DeviceProvisionedController;
 import com.android.systemui.statusbar.policy.KeyguardMonitor;
 
+import java.lang.Math;
+
 public class GlobalActionsImpl implements GlobalActions, CommandQueue.Callbacks {
 
-    private static final float SHUTDOWN_SCRIM_ALPHA = 0.95f;
+    private static float SHUTDOWN_SCRIM_ALPHA = 0.95f;
 
     private final Context mContext;
     private final KeyguardMonitor mKeyguardMonitor;
@@ -57,6 +59,9 @@ public class GlobalActionsImpl implements GlobalActions, CommandQueue.Callbacks 
         mKeyguardMonitor = Dependency.get(KeyguardMonitor.class);
         mDeviceProvisionedController = Dependency.get(DeviceProvisionedController.class);
         SysUiServiceProvider.getComponent(context, CommandQueue.class).addCallbacks(this);
+
+        String shutdownScrimAlpha = mContext.getResources().getString(com.android.systemui.R.string.shutdown_scrim_alpha);
+        SHUTDOWN_SCRIM_ALPHA = Math.max(0, Math.min(Float.valueOf(shutdownScrimAlpha), 1));
     }
 
     @Override
