@@ -53,9 +53,10 @@
     <!-- Gesture warns -->
     <string name="gesture_warning">You have to unlock your phone first, to use gestures.</string>
 
-    <!-- Button that copies the url to the log of a crashed application -->
+    <!-- Aerr strings -->
     <string name="aerr_copy">Copy crash log URL</string>
     <string name="url_copy_success">URL copied successfully</string>
     <string name="url_copy_failed">An error occured while uploading the log to dogbin</string>
+    <string name="aerr_disable">Disable app</string>
 
 </resources>

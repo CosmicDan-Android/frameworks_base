@@ -128,6 +128,7 @@
   <java-symbol type="id" name="aerr_copy" />
   <java-symbol type="string" name="url_copy_success" />
   <java-symbol type="string" name="url_copy_failed" />
+  <java-symbol type="id" name="aerr_disable" />
 
   <!-- Switch Thumb -->
   <java-symbol type="dimen" name="switch_thumb_material_anim_width" />
