@@ -52,5 +52,8 @@
     <!-- QS footer drag -->
     <color name="qs_footer_drag">#000000</color>
 
+    <!-- ShutdownUI -->
+    <color name="shutdownui_background">#000000</color>
+
 </resources>
 
