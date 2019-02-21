@@ -34,6 +34,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.UserInfo;
 import android.database.ContentObserver;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.media.AudioManager;
@@ -89,6 +91,7 @@ import com.android.internal.widget.LockPatternUtils;
 import com.android.systemui.Dependency;
 import com.android.systemui.HardwareUiLayout;
 import com.android.systemui.Interpolators;
+import com.android.systemui.ImageUtilities;
 import com.android.systemui.colorextraction.SysuiColorExtractor;
 import com.android.systemui.plugins.GlobalActions.GlobalActionsManager;
 import com.android.systemui.statusbar.phone.ScrimController;
@@ -1605,7 +1608,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
         private final HardwareUiLayout mHardwareLayout;
         private final OnClickListener mClickListener;
         private final OnItemLongClickListener mLongClickListener;
-        private final GradientDrawable mGradientDrawable;
+        //private final GradientDrawable mGradientDrawable;
         private final ColorExtractor mColorExtractor;
         private boolean mKeyguardShowing;
         private boolean mShouldDisplaySeparatedButton;
@@ -1617,13 +1620,17 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             mAdapter = adapter;
             mClickListener = clickListener;
             mLongClickListener = longClickListener;
-            mGradientDrawable = new GradientDrawable(mContext);
+            //mGradientDrawable = new GradientDrawable(mContext);
             mColorExtractor = Dependency.get(SysuiColorExtractor.class);
             mShouldDisplaySeparatedButton = shouldDisplaySeparatedButton;
 
             // Window initialization
             Window window = getWindow();
+            View v1 = window.getDecorView();
             window.requestFeature(Window.FEATURE_NO_TITLE);
+            Bitmap bittemp = ImageUtilities.blurImage(mContext, ImageUtilities.screenshotSurface(mContext));
+            Drawable background = new BitmapDrawable(mContext.getResources(), bittemp);
+            
             // Inflate the decor view, so the attributes below are not overwritten by the theme.
             window.getDecorView();
             window.getAttributes().systemUiVisibility |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
@@ -1638,7 +1645,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                     | WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED
                     | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH
                     | WindowManager.LayoutParams.FLAG_HARDWARE_ACCELERATED);
-            window.setBackgroundDrawable(mGradientDrawable);
+            window.setBackgroundDrawable(background);
             window.setType(WindowManager.LayoutParams.TYPE_VOLUME_OVERLAY);
 
             setContentView(com.android.systemui.R.layout.global_actions_wrapped);
@@ -1692,7 +1699,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
             Point displaySize = new Point();
             mContext.getDisplay().getRealSize(displaySize);
             mColorExtractor.addOnColorsChangedListener(this);
-            mGradientDrawable.setScreenSize(displaySize.x, displaySize.y);
+            //mGradientDrawable.setScreenSize(displaySize.x, displaySize.y);
             GradientColors colors = mColorExtractor.getColors(mKeyguardShowing ?
                     WallpaperManager.FLAG_LOCK : WallpaperManager.FLAG_SYSTEM);
             updateColors(colors, false /* animate */);
@@ -1704,7 +1711,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
          * @param animate Interpolates gradient if true, just sets otherwise.
          */
         private void updateColors(GradientColors colors, boolean animate) {
-            mGradientDrawable.setColors(colors, animate);
+            //mGradientDrawable.setColors(colors, animate);
             View decorView = getWindow().getDecorView();
             if (colors.supportsDarkText()) {
                 decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR |
@@ -1723,7 +1730,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
         @Override
         public void show() {
             super.show();
-            mGradientDrawable.setAlpha(0);
+            //mGradientDrawable.setAlpha(0);
             mHardwareLayout.setTranslationX(getAnimTranslation());
             mHardwareLayout.setAlpha(0);
             mHardwareLayout.animate()
@@ -1734,7 +1741,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                     .setUpdateListener(animation -> {
                         int alpha = (int) ((Float) animation.getAnimatedValue()
                                 * ScrimController.GRADIENT_SCRIM_ALPHA * 255);
-                        mGradientDrawable.setAlpha(alpha);
+                        //mGradientDrawable.setAlpha(alpha);
                     })
                     .withEndAction(() -> getWindow().getDecorView().requestAccessibilityFocus())
                     .start();
@@ -1753,7 +1760,7 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener,
                     .setUpdateListener(animation -> {
                         int alpha = (int) ((1f - (Float) animation.getAnimatedValue())
                                 * ScrimController.GRADIENT_SCRIM_ALPHA * 255);
-                        mGradientDrawable.setAlpha(alpha);
+                        //mGradientDrawable.setAlpha(alpha);
                     })
                     .start();
         }
