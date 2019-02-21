@@ -79,7 +79,7 @@
     <string name="accessibility_quick_settings_caffeine_on">Caffeine on</string>
 
     <!-- Scrim Alpha Value [DO NOT TRANSLATE] -->
-    <string name="shutdown_scrim_alpha">0.95f</string>
+    <string name="shutdown_scrim_alpha">0.44f</string>
 
 </resources>
 
