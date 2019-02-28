@@ -30,11 +30,15 @@ public class ThemeUtils {
         private static final String[] ROUNDIERUITHEME  = {
             "org.descendant.UI.android.roundier", 
             "org.descendant.UI.system.roundier",        
+            "org.descendant.seekbars.roundier",
+            "org.descendant.volumebar.roundier"
         };
 
         private static final String[] SQUAREUITHEME  = {
             "org.descendant.UI.android.square",
             "org.descendant.UI.system.square",
+            "org.descendant.seekbars.square",
+            "org.descendant.volumebar.square",
         };
 
         private static final String[] DESCENDANTICONTHEMES = {
