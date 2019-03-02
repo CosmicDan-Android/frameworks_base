@@ -334,7 +334,7 @@ public class Utils {
         IStatusBarService service = getStatusBarService();
         if (service != null) {
             try {
-                service.togglePanel();
+                service.expandNotificationsPanel();
             } catch (RemoteException e) {
                 // do nothing.
             }
@@ -346,7 +346,7 @@ public class Utils {
         IStatusBarService service = getStatusBarService();
         if (service != null) {
             try {
-                service.toggleSettingsPanel(null);
+                service.expandSettingsPanel(null);
             } catch (RemoteException e) {
                 // do nothing.
             }
