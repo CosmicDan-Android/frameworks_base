@@ -4488,6 +4488,9 @@ public final class Settings {
         public static final String UI_SWITCHER = "ui_switcher";
 
         /** @hide */
+        public static final String THUMB_UI = "thumb_ui";
+
+        /** @hide */
         public static final String AUDIO_PANEL_VIEW_MEDIA = "audio_panel_view_media";
 
         /** @hide */
