@@ -26,6 +26,10 @@ public class ThemeUtils {
 
     public static final String TAG = "DescendantThemerUtility";
 
+        private static final String[] THUMBUI = {
+            "org.descendant.UI.ThumbUI",
+        };
+
         /* icon and ui themes arrays */
         private static final String[] ROUNDIERUITHEME  = {
             "org.descendant.UI.android.roundier", 
@@ -185,4 +189,25 @@ public class ThemeUtils {
                 }
            }
         /* end of methods to unload and load icons plus ui themes */
+
+    public static void thumbUI(IOverlayManager om, int userId, int setting) {
+            switch (setting) {
+                case 0: for (int i = 0; i < THUMBUI.length; i++) {
+                          try {
+                              om.setEnabled(THUMBUI[i], false, userId);
+                              } catch(RemoteException e) {
+                                Log.e(TAG,"thumbUI routine has failed!");
+                              }
+                        }
+                break;
+                case 1: for (int i = 0; i < THUMBUI.length; i++) {
+                          try {
+                              om.setEnabled(THUMBUI[i], true, userId);
+                              } catch(RemoteException e) {
+                                Log.e(TAG,"thumbUI routine has failed!");
+                              }
+                        }
+                break;
+            }
+    }
 }

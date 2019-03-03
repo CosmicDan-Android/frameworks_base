@@ -4054,6 +4054,17 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     /**
+     *Descendant ThumbUI
+     */
+
+    protected void thumbUI() {
+        int thumbUI = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.THUMB_UI, 0, mLockscreenUserManager.getCurrentUserId());
+            ThemeUtils.thumbUI(mOverlayManager, mLockscreenUserManager.getCurrentUserId(), thumbUI);
+            reevaluateStyles();
+    }
+
+   /**
      * Switches theme from light to dark and vice-versa.
      */
     protected void updateTheme() {
@@ -5380,6 +5391,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SYSTEM_ICON_SWITCHER),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.THUMB_UI),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -5420,6 +5434,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                 uiSwitcher(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.SYSTEM_ICON_SWITCHER))) {
                 systemIconSwitcher();
+            } else if (uri.equals(Settings.Secure.getUriFor(Settings.System.THUMB_UI))) {
+                thumbUI();
             }
         }
 
@@ -5434,6 +5450,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateKeyguardStatusSettings();
             systemIconSwitcher();
             uiSwitcher(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
+            thumbUI();
         }
     }
 
