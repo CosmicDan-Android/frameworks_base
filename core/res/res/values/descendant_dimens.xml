@@ -21,4 +21,7 @@
     <dimen name="switch_track_material_height">14dp</dimen>
     <dimen name="switch_track_material_radius">7dp</dimen>
 
+    <!-- Switch bar size -->
+    <dimen name="switch_bar_default_height_material">56dip</dimen>
+
 </resources>
