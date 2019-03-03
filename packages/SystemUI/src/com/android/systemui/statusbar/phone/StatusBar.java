@@ -5434,7 +5434,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 uiSwitcher(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
             } else if (uri.equals(Settings.System.getUriFor(Settings.System.SYSTEM_ICON_SWITCHER))) {
                 systemIconSwitcher();
-            } else if (uri.equals(Settings.Secure.getUriFor(Settings.System.THUMB_UI))) {
+            } else if (uri.equals(Settings.System.getUriFor(Settings.System.THUMB_UI))) {
                 thumbUI();
             }
         }
