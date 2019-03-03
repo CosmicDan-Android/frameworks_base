@@ -19,7 +19,7 @@
 
     <!-- Brightness bar -->
     <dimen name="brightness_drawable_corner">14dp</dimen>
-    <dimen name="brightness_drawable_height"45dp</dimen>
+    <dimen name="brightness_drawable_height">45dp</dimen>
     <dimen name="brightness_drawable_button_height">15dp</dimen>
     <dimen name="brightness_drawable_button_width">15dp</dimen>
 
