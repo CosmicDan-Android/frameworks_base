@@ -38,13 +38,13 @@
 
         <ImageView
             android:id="@+id/blue"
-            android:src="@drawable/ic_sysbar_opa_accent"
+            android:src="@drawable/ic_sysbar_opa_accentdark"
             android:importantForAccessibility="no"
             style="@style/DotStyle" />
 
         <ImageView
             android:id="@+id/green"
-            android:src="@drawable/ic_sysbar_opa_accent"
+            android:src="@drawable/ic_sysbar_opa_accentdark"
             android:importantForAccessibility="no"
             style="@style/DotStyle" />
 
