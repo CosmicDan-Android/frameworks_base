@@ -42,10 +42,7 @@ public class ThemeAccentUtils {
         "com.android.system.theme.black", // 0
         "com.android.settings.theme.black", // 1
         "com.android.systemui.theme.black", // 2
-        "com.android.dialer.theme.black", //3
-        "com.android.contacts.theme.black", //4
-        "com.android.documentsui.theme.black", //5
-        "com.google.android.apps.wellbeing.theme.black", //6
+        "com.google.android.apps.wellbeing.theme.black", //3
     };
 
     private static final String[] LIGHT_THEMES = {
