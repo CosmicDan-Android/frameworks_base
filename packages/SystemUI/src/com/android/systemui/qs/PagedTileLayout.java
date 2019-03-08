@@ -63,21 +63,6 @@ public class PagedTileLayout extends ViewPager implements QSTileLayout {
     private float mLastExpansion;
     private int mHorizontalClipBounds;
 
-    private static boolean getThumbUIStatus(Context context) {
-        try {
-            if (android.provider.Settings.System.getIntForUser(
-                context.getContentResolver(),android.provider.Settings.System.THUMB_UI,
-                UserHandle.USER_CURRENT) == 1) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (android.provider.Settings.SettingNotFoundException e) {
-                return false;
-        }
-    }
-    private final boolean thumbUIsetting = getThumbUIStatus(getContext());
-
     public PagedTileLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mScroller = new Scroller(context, SCROLL_CUBIC);
@@ -266,16 +251,14 @@ public class PagedTileLayout extends ViewPager implements QSTileLayout {
 
     @Override
     public boolean updateResources() {
-
         // Update bottom padding, useful for removing extra space once the panel page indicator is
         // hidden.
         mHorizontalClipBounds = getContext().getResources().getDimensionPixelSize(
                 R.dimen.notification_side_paddings);
-        if (!thumbUIsetting) {
-            setPadding(0, 0, 0,
-                    getContext().getResources().getDimensionPixelSize(
-                            R.dimen.qs_paged_tile_layout_padding_bottom));
-        }
+        setPadding(0, 0, 0,
+                getContext().getResources().getDimensionPixelSize(
+                        R.dimen.qs_paged_tile_layout_padding_bottom));
+
         boolean changed = false;
         for (int i = 0; i < mPages.size(); i++) {
             changed |= mPages.get(i).updateResources();
@@ -286,22 +269,12 @@ public class PagedTileLayout extends ViewPager implements QSTileLayout {
         return changed;
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         // The ViewPager likes to eat all of the space, instead force it to wrap to the max height
         // of the pages.
-
-        int maxHeight;
-        final Resources res = getContext().getResources();
-
-        if (thumbUIsetting && res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            maxHeight = Resources.getSystem().getDisplayMetrics().heightPixels / 2;
-        } else {
-            maxHeight = 0;
-        }
-
+        int maxHeight = 0;
         final int N = getChildCount();
         for (int i = 0; i < N; i++) {
             int height = getChildAt(i).getMeasuredHeight();
@@ -432,6 +405,7 @@ public class PagedTileLayout extends ViewPager implements QSTileLayout {
         private int getRows() {
             final Resources res = getContext().getResources();
             final ContentResolver resolver = mContext.getContentResolver();
+
             if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 return Settings.System.getIntForUser(resolver,
                         Settings.System.QS_ROWS_PORTRAIT, 3,

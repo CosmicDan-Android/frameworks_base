@@ -21,7 +21,6 @@ import static android.app.StatusBarManager.DISABLE2_QUICK_SETTINGS;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Point;
-import android.os.UserHandle;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -52,21 +51,6 @@ public class QSContainerImpl extends FrameLayout {
 
     private int mSideMargins;
     private boolean mQsDisabled;
-
-    private static boolean getThumbUIStatus(Context context) {
-        try {
-            if (android.provider.Settings.System.getIntForUser(
-                context.getContentResolver(),android.provider.Settings.System.THUMB_UI,
-                UserHandle.USER_CURRENT) == 1) {
-                return true;
-            } else {
-                return false;
-            }
-        } catch (android.provider.Settings.SettingNotFoundException e) {
-                return false;
-        }
-    }
-    private final boolean thumbUIsetting = getThumbUIStatus(getContext());
 
     public QSContainerImpl(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -119,17 +103,12 @@ public class QSContainerImpl extends FrameLayout {
         // Since we control our own bottom, be whatever size we want.
         // Otherwise the QSPanel ends up with 0 height when the window is only the
         // size of the status bar.
-
         mQSPanel.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(
                 MeasureSpec.getSize(heightMeasureSpec), MeasureSpec.UNSPECIFIED));
         int width = mQSPanel.getMeasuredWidth();
         LayoutParams layoutParams = (LayoutParams) mQSPanel.getLayoutParams();
-
-        // Go full height if ThumbUI it's enabled
-        int height = (!thumbUIsetting) ? layoutParams.topMargin + layoutParams.bottomMargin
-               + getDisplayHeight() : layoutParams.topMargin + layoutParams.bottomMargin
-               + mQSPanel.getMeasuredHeight();
-
+        int height = layoutParams.topMargin + layoutParams.bottomMargin
+                + mQSPanel.getMeasuredHeight();
         super.onMeasure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
                 MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY));
 
