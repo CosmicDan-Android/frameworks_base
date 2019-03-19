@@ -31,6 +31,7 @@ public class ThemeUtils {
             "org.descendant.UI.ThumbUI.GContacts",
             "org.descendant.UI.ThumbUI.GDialer",
             "org.descendant.UI.ThumbUI.GMessages",
+            "org.descendant.UI.ThumbUI.Youtube",
         };
 
         /* icon and ui themes arrays */
