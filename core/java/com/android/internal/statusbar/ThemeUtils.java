@@ -27,7 +27,8 @@ public class ThemeUtils {
     public static final String TAG = "DescendantThemerUtility";
 
         private static final String[] THUMBUI = {
-            "org.descendant.UI.ThumbUI",
+            "org.descendant.UI.ThumbUI.common",
+
         };
 
         /* icon and ui themes arrays */
