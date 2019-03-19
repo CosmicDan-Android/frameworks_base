@@ -28,7 +28,9 @@ public class ThemeUtils {
 
         private static final String[] THUMBUI = {
             "org.descendant.UI.ThumbUI.common",
-
+            "org.descendant.UI.ThumbUI.GContacts",
+            "org.descendant.UI.ThumbUI.GDialer",
+            "org.descendant.UI.ThumbUI.GMessages",
         };
 
         /* icon and ui themes arrays */
