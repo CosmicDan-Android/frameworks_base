@@ -81,5 +81,8 @@
     <!-- Scrim Alpha Value [DO NOT TRANSLATE] -->
     <string name="shutdown_scrim_alpha">0.44f</string>
 
+    <!-- ThumbUI Tile -->
+    <string name="quick_settings_thumbui_label">ThumbUI</string>
+
 </resources>
 
