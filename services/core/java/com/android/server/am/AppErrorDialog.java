@@ -231,7 +231,7 @@ final class AppErrorDialog extends BaseErrorDialog implements View.OnClickListen
     private void disablePackage() {
         if(mPackageName != null) {
             PackageManager pm = getContext().getPackageManager();
-            pm.setApplicationEnabledSetting(mPackageName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED_UNTIL_USED, 0);
+            pm.setApplicationEnabledSetting(mPackageName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED_USER, 0);
         }
     }
 
