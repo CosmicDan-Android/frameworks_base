@@ -1334,9 +1334,9 @@ public class Camera {
                 return;
             /* ### QC ADD-ONS: START */
             case CAMERA_MSG_STATS_DATA:
-                int statsdata = new int257;
+                int statsdata[] = new int[257];
                 for(int i =0; i<257; i++ ) {
-                   statsdatai = byteToInt( (byte)msg.obj, i*4);
+                   statsdata[i] = byteToInt( (byte[])msg.obj, i*4);
                 }
                 if (mCameraDataCallback != null) {
                      mCameraDataCallback.onCameraData(statsdata, mCamera);
@@ -1345,7 +1345,7 @@ public class Camera {
 
             case CAMERA_MSG_META_DATA:
                 if (mCameraMetaDataCallback != null) {
-                    mCameraMetaDataCallback.onCameraMetaData((byte)msg.obj, mCamera);
+                    mCameraMetaDataCallback.onCameraMetaData((byte[])msg.obj, mCamera);
                 }
                 return;
             /* ### QC ADD-ONS: END */
@@ -1858,11 +1858,7 @@ public class Camera {
                     } catch (RemoteException e) {
                         Log.e(TAG, "Audio service is unavailable for queries");
                     }
-                    try {
-                        _enableShutterSound(false);
-                    } catch (Exception e) {
-                        Log.e(TAG, "Couldn't disable shutter sound");
-                    }
+                    _enableShutterSound(false);
                 } else {
                     enableShutterSound(mShutterSoundEnabledFromApp);
                 }
@@ -2248,11 +2244,11 @@ public class Camera {
     }
 
     /* ### QC ADD-ONS: START */
-    private static int byteToInt(byte b, int offset) {
+    private static int byteToInt(byte[] b, int offset) {
         int value = 0;
         for (int i = 0; i < 4; i++) {
             int shift = (4 - 1 - i) * 8;
-            value += (b(3-i) + offset & 0x000000FF) << shift;
+            value += (b[(3-i) + offset] & 0x000000FF) << shift;
         }
         return value;
     }
@@ -2267,7 +2263,7 @@ public class Camera {
          * @param data   a int array of the camera data
          * @param camera the Camera service object
          */
-        void onCameraData(int data, Camera camera);
+        void onCameraData(int[] data, Camera camera);
     };
 
     /** @hide
@@ -2304,7 +2300,7 @@ public class Camera {
          * @param data   a byte array of the camera meta data
          * @param camera the Camera service object
          */
-        void onCameraMetaData(byte data, Camera camera);
+        void onCameraMetaData(byte[] data, Camera camera);
     };
 
     /** @hide
